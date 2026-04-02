@@ -1,5 +1,5 @@
 ﻿import { expect } from "chai";
-import { ChessParser, FENState } from "../../../src/models/chessParser"
+import { ChessParser, FENState } from '../../../src/models/chessParser.js';
 
 describe("ChessParser", () => {
     let parser: ChessParser;

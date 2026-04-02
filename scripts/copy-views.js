@@ -1,12 +1,10 @@
-'use strict';
-
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 function copyViews() {
-  const viewsDir = path.join(__dirname, '..', 'views');
-  const distViewsDir = path.join(__dirname, '..', 'dist', 'views');
-  
+  const viewsDir = path.join(import.meta.dirname, '..', 'views');
+  const distViewsDir = path.join(import.meta.dirname, '..', 'dist', 'views');
+
   // Create dist/views directory if it doesn't exist
   if (!fs.existsSync(distViewsDir)) {
     fs.mkdirSync(distViewsDir);

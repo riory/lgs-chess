@@ -1,5 +1,5 @@
-
-export const FEN_DEFAULT_STATE = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+export const FEN_DEFAULT_STATE =
+  'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 
 /**
  * Configuration and constants for FEN parsing logic.
@@ -21,16 +21,30 @@ export const FEN_CONFIG = {
 export const FEN_ERRORS = {
   STRUCTURE: `FEN must have exactly ${FEN_CONFIG.FIELD_COUNT} space-separated fields`,
   RANK_COUNT: `Board must have ${FEN_CONFIG.BOARD_SIZE} ranks`,
-  INVALID_CHAR: (char: string, rank: number) => `Invalid character '${char}' in rank ${rank}`,
-  RANK_SIZE: (rank: number, count: number) => `Rank ${rank} has ${count} squares instead of ${FEN_CONFIG.BOARD_SIZE}`,
+  INVALID_CHAR: (char: string, rank: number) =>
+    `Invalid character '${char}' in rank ${rank}`,
+  RANK_SIZE: (rank: number, count: number) =>
+    `Rank ${rank} has ${count} squares instead of ${FEN_CONFIG.BOARD_SIZE}`,
   SIDE: "Side to move must be 'w' or 'b'",
-  CASTLING: "Invalid castling rights",
-  EN_PASSANT: "Invalid en passant square",
-  HALF_MOVE: "Half-move clock must be a non-negative integer",
-  FULL_MOVE: "Full-move number must be a positive integer",
+  CASTLING: 'Invalid castling rights',
+  EN_PASSANT: 'Invalid en passant square',
+  HALF_MOVE: 'Half-move clock must be a non-negative integer',
+  FULL_MOVE: 'Full-move number must be a positive integer',
 } as const;
 
-export type Piece = 'p' | 'n' | 'b' | 'r' | 'q' | 'k' | 'P' | 'N' | 'B' | 'R' | 'Q' | 'K';
+export type Piece =
+  | 'p'
+  | 'n'
+  | 'b'
+  | 'r'
+  | 'q'
+  | 'k'
+  | 'P'
+  | 'N'
+  | 'B'
+  | 'R'
+  | 'Q'
+  | 'K';
 
 export interface FENState {
   board: (Piece | null)[][];
@@ -67,7 +81,7 @@ export class ChessParser {
         halfMoveClock: 0,
         fullMoveNumber: 1,
         parseErrors: parseErrors,
-        isValid: false
+        isValid: false,
       };
     }
 
@@ -77,8 +91,18 @@ export class ChessParser {
     const side = this.validateTurn(turn, parseErrors);
     const castlingRights = this.validateCastling(castling, parseErrors);
     const epSquare = this.validateEnPassant(enPassant, parseErrors);
-    const hmClock = this.validateClock(halfMove, ChessParser.ERRORS.HALF_MOVE, parseErrors, 0);
-    const fmNum = this.validateClock(fullMove, ChessParser.ERRORS.FULL_MOVE, parseErrors, 1);
+    const hmClock = this.validateClock(
+      halfMove,
+      ChessParser.ERRORS.HALF_MOVE,
+      parseErrors,
+      0
+    );
+    const fmNum = this.validateClock(
+      fullMove,
+      ChessParser.ERRORS.FULL_MOVE,
+      parseErrors,
+      1
+    );
 
     return {
       board,
@@ -88,7 +112,7 @@ export class ChessParser {
       halfMoveClock: hmClock,
       fullMoveNumber: fmNum,
       parseErrors,
-      isValid: parseErrors.length === 0
+      isValid: parseErrors.length === 0,
     };
   }
 
@@ -145,7 +169,12 @@ export class ChessParser {
     return ep;
   }
 
-  private validateClock(value: string, errorMsg: string, errors: string[], fallback: number): number {
+  private validateClock(
+    value: string,
+    errorMsg: string,
+    errors: string[],
+    fallback: number
+  ): number {
     const num = parseInt(value);
     if (isNaN(num) || (fallback === 1 ? num < 1 : num < 0)) {
       errors.push(errorMsg);

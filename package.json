@@ -1,27 +1,39 @@
 {
-    "name": "lmtest",
-    "version": "1.0.0",
-    "description": "TypeScript Hello World project",
+    "name": "lgs-chess",
+    "version": "0.0.1",
+    "description": "Chess game server built with Express and TypeScript",
     "main": "dist/server.js",
+    "type": "module",
     "scripts": {
+        "generate-certs": "node scripts/generate_certs.js",
+        "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+        "lint": "eslint \"src/**/*.{ts,tsx}\" ",
         "compile": "rm -rf ./dist && tsc && node scripts/copy-views.js",
-        "start": "npm run compile && node dist/server.js",
-        "test": "mocha --require ts-node/register test/**/*.spec.ts --timeout 5000"
+        "start": "node scripts/start.js",
+        "test": "node --import tsx node_modules/mocha/bin/mocha test/**/*.spec.ts"
     },
     "keywords": [],
     "license": "ISC",
     "dependencies": {
+        "dotenv": "^17.4.0",
         "ejs": "^5.0.1",
         "express": "^5.2.1"
     },
     "devDependencies": {
+        "@eslint/js": "^10.0.1",
         "@types/chai": "^4.3.0",
         "@types/express": "^5.0.6",
         "@types/mocha": "^10.0.0",
+        "@typescript-eslint/parser": "^8.58.0",
         "chai": "^4.3.7",
+        "eslint": "^10.1.0",
+        "globals": "^17.4.0",
         "mocha": "^10.8.2",
+        "prettier": "^3.8.1",
+        "prettier-eslint": "^16.4.2",
         "ts-node": "^10.9.0",
-        "typescript": "^5.0.0"
+        "tsx": "^4.21.0",
+        "typescript": "^5.0.0",
+        "typescript-eslint": "^8.58.0"
     }
 }
-

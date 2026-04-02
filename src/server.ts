@@ -1,16 +1,24 @@
-import express from 'express';
-import path from 'path';
-import router from './router';
+import https from 'https';
+import fs from 'fs';
+import app from './app.js';
+import config from './config/config.js';
 
-const app = express();
-const port = 3000;
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-app.use('/', router);
+const options = {
+  key: fs.readFileSync('certs/localhost.key'),
+  cert: fs.readFileSync('certs/localhost.crt'),
+};
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+const server = https.createServer(options, app);
+
+server.listen(config.port, () => {
+  // eslint-disable-next-line no-console
+  console.log(
+    `Server running on port ${config.port}: https://localhost:${config.port}`
+  );
 });
-

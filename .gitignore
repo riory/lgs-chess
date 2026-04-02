@@ -1,2 +1,26 @@
-node_modules
-dist
+# Node modules and build artifacts
+node_modules/
+dist/
+
+# TypeScript specific
+*.log
+.tsbuildinfo
+
+# IDE/Editor configurations
+.vscode/
+.idea/
+
+# Build tool caches
+yarn-cache/
+*.tgz
+
+# Test coverage reports
+coverage/
+
+# Environment files
+.env*
+
+# Certificates and keys (already present)
+certs/
+*.pem
+*.key
