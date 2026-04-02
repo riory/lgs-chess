@@ -7,10 +7,7 @@ export default tseslint.config(
   {
     ignores: [
       "dist/**",
-      "node_modules/**",
-      "src/test/unit/**",
-      "**/*.test.ts",
-      "**/*.spec.ts",
+      "node_modules/**"
     ],
   },
   // 2. Base configs (this automatically sets up the parser)
