@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<% const pieceSymbols={
+    'K': '♔', 'Q': '♕', 'R': '♖', 'B': '♗', 'N': '♘', 'P': '♙',
+    'k': '♚', 'q': '♛', 'r': '♜', 'b': '♝', 'n': '♞', 'p': '♟'
+  }; %>
+
+  <head>
+    <meta charset="UTF-8">
+    <title>
+      <%= title %>
+    </title>
+    <style>
+      .chess-board {
+        display: flex;
+        flex-direction: column;
+        width: 800px;
+        height: 800px;
+        border: 4px solid #333;
+      }
+
+      .rank {
+        display: flex;
+        flex: 1;
+      }
+
+      .square {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        font-family: serif;
+      }
+
+      .light {
+        background-color: #9c9c9c;
+      }
+
+      .dark {
+        background-color: #3d3d3d;
+      }
+
+      .piece {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: default;
+        user-select: none;
+        /* font */
+        font-size: 5rem;
+
+        /* The drop shadow logic */
+        filter: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.4));
+        transition: transform 0.1s ease;
+      }
+
+      .piece.white {
+        color: #fff;
+        text-shadow: 0 0 2px #000;
+      }
+
+      .piece.black {
+        color: #000;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="chess-board">
+      <% state.board.forEach((rank, rowIndex)=> { %>
+        <div class="rank">
+          <% rank.forEach((piece, colIndex)=> {
+            const isDark = (rowIndex + colIndex) % 2 !== 0;
+            const squareClass = isDark ? 'dark' : 'light';
+            %>
+            <div class="square <%= squareClass %>" data-pos="<%= rowIndex %>-<%= colIndex %>">
+              <% if (piece) { %>
+                <span class="piece <%= piece === piece.toUpperCase() ? 'white' : 'black' %>">
+                  <%= pieceSymbols[piece] %>
+                </span>
+                <% } %>
+            </div>
+            <% }); %>
+        </div>
+        <% }); %>
+    </div>
+  </body>
+
+</html>
